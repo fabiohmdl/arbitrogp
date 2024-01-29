@@ -29,6 +29,18 @@ jobs:
       - name: Run a one-line script
         run: echo Hello, world!
 
+      - name: Get Job ID from GH API
+        id: get-job-id
+        run: |
+          jobs=$(gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id}}/attempts/${{ github.run_attempt }}/jobs)
+          job_id=$(echo $jobs | jq -r '.jobs[] | select(.runner_name=="${{ runner.name }}") | .id')
+          echo "job_id=$job_id" >> $GITHUB_OUTPUT
+    
+      - name: Display Job ID
+        run: |
+          echo Job ID: ${{ steps.get-job-id.outputs.job_id }}
+          echo My full job URL is ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ steps.get-job-id.outputs.job_id }}
+
       # Runs a set of commands using the runners shell
       - name: Run a multi-line script
         run: |
