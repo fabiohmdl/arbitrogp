@@ -31,13 +31,9 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           $jobs = gh api repos/${{ github.repository }}/actions/runs/${{ github.run_id}}/attempts/${{ github.run_attempt }}/jobs
-          echo $jobs
           $job_id = ($jobs | ConvertFrom-Json).jobs | Where-Object { $_.runner_name -eq "${{ runner.name }}" } | Select-Object -ExpandProperty id
-          echo $job_id
           echo "job_id=$job_id" >> $env:GITHUB_OUTPUT
     
       - name: Display Job ID
         run: |
-          $job_id = $env:job_id
-          Write-Host "Job ID: $job_id"
-          Write-Host "My full job URL is $env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/job/$job_id"
+          echo $job_id
