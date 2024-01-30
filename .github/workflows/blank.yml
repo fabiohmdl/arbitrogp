@@ -38,6 +38,6 @@ jobs:
     
       - name: Display Job ID
         run: |
-          $jobID = $env:JOB_ID
-          Write-Host "Job ID: $jobID"
-          Write-Host "My full job URL is $env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/job/$jobID"
+          $job_id = $env:job_id
+          Write-Host "Job ID: $job_id"
+          Write-Host "My full job URL is $env:GITHUB_SERVER_URL/$env:GITHUB_REPOSITORY/actions/runs/$env:GITHUB_RUN_ID/job/$job_id"
