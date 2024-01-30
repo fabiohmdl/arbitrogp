@@ -36,4 +36,4 @@ jobs:
     
       - name: Display Job ID
         run: |
-          echo $job_id
+          echo $Env:job_id
